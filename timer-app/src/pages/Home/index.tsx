@@ -23,10 +23,10 @@ export const Home = () => {
           <span>0</span>
         </S.CountdownContainer>
 
-        <button type="submit">
+        <S.StartCountdownButton type="submit">
           <Play size={24} />
           Começar
-        </button>
+        </S.StartCountdownButton>
       </form>
     </S.HomeContainer>
   );
