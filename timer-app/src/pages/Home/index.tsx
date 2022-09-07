@@ -9,15 +9,6 @@ import { NewCycleForm } from "./components/NewCycleForm";
 
 import * as S from "./styles";
 
-export interface Cycle {
-  id: string;
-  task: string;
-  minutesAmount: number;
-  startDate: Date;
-  interruptedDate?: Date;
-  finishedDate?: Date;
-}
-
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, "Informe a tarefa"),
   minutesAmount: zod
