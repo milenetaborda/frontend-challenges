@@ -5,9 +5,9 @@ export const HeaderContainer = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  padding: 32px 160px;
   height: 104px;
   max-height: 104px;
+  padding: 32px auto;
 `;
 
 export const HeaderNavItems = styled.nav`
