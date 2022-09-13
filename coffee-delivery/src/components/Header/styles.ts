@@ -6,8 +6,9 @@ export const HeaderContainer = styled.header`
   align-items: center;
 
   height: 104px;
-  max-height: 104px;
   padding: 32px auto;
+  width: 100%;
+  max-width: 1120px;
 `;
 
 export const HeaderNavItems = styled.nav`

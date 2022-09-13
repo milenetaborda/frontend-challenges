@@ -5,6 +5,8 @@ export const DefaultLayoutContainer = styled.div`
   max-width: 1440px;
   height: 100%;
 
-  margin: 0 auto;
-  padding: 0 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 32px;
 `;
