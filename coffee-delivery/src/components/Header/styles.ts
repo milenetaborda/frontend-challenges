@@ -16,7 +16,7 @@ export const HeaderNavItems = styled.nav`
   align-items: center;
   gap: 12px;
 
-  span {
+  > span {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,6 +52,26 @@ export const Card = styled.button`
 
   border: none;
   cursor: pointer;
+  position: relative;
+
+  span {
+    position: absolute;
+    font-family: "Roboto";
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 130%;
+    color: ${({ theme }) => theme["white"]};
+    background: ${({ theme }) => theme["yellow-dark"]};
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    top: -8px;
+    right: -8px;
+    width: 20px;
+    height: 20px;
+  }
 
   svg {
     color: ${({ theme }) => theme["yellow-dark"]};

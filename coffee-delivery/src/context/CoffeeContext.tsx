@@ -10,6 +10,7 @@ interface ICoffeeContext {
   incrementCoffee: (id: number) => void;
   decrementCoffee: (id: number) => void;
   addToCart: (coffee: ICoffeeWithAmount) => void;
+  cart: ICoffeeWithAmount[];
 }
 
 interface ICoffeeProviderData {
@@ -54,7 +55,7 @@ export const CoffeeProvider = ({ children }: ICoffeeProviderData) => {
 
   return (
     <CoffeeContext.Provider
-      value={{ coffees, incrementCoffee, decrementCoffee, addToCart }}
+      value={{ coffees, incrementCoffee, decrementCoffee, addToCart, cart }}
     >
       {children}
     </CoffeeContext.Provider>
