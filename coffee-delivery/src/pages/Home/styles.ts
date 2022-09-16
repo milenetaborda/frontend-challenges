@@ -22,6 +22,7 @@ export const CoffeeList = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   margin-top: 32px;
+  gap: 32px;
 
   padding: 54px 0;
 `;

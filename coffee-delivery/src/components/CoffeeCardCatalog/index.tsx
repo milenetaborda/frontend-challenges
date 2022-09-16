@@ -1,40 +1,55 @@
 import { Minus, Plus, ShoppingCart } from "phosphor-react";
+import { useContext } from "react";
+import { ICoffe } from "../../constants/dataCoffes.mock";
+import { CoffeeContext, ICoffeeWithAmount } from "../../context/CoffeeContext";
 
-import coffeImage from "./images/Coffee.png";
 import * as S from "./styles";
 
-export const CoffeeCardCatalog = () => {
+interface ICoffeeCardCatalogProps {
+  data: ICoffe;
+}
+
+export const CoffeeCardCatalog = ({ data }: ICoffeeCardCatalogProps) => {
+  const { incrementCoffee, decrementCoffee, addToCart } =
+    useContext(CoffeeContext);
+
+  const { desc, imageUrl, id, name, tags, value, amount } =
+    data as ICoffeeWithAmount;
+
   return (
     <S.CoffeeCardContainer>
-      <img src={coffeImage} alt="" />
+      <img
+        src={imageUrl}
+        alt={`imagem ilustrativa de uma xícara com ${name}`}
+      />
 
       <S.TagsContainer>
-        <span>Tradicional</span>
+        {tags.map((tag) => (
+          <span key={tag}>{tag}</span>
+        ))}
       </S.TagsContainer>
 
       <S.CoffeeHeadingContent>
-        <S.CoffeeName>Nome do café</S.CoffeeName>
-        <S.CoffeeDescription>
-          O tradicional café feito com água quente e grãos moídos
-        </S.CoffeeDescription>
+        <S.CoffeeName>{name}</S.CoffeeName>
+        <S.CoffeeDescription>{desc}</S.CoffeeDescription>
       </S.CoffeeHeadingContent>
 
       <S.CoffeeCardFooter>
         <S.Price>
-          <span>R$</span> 10,00
+          <span>R$</span> {value}
         </S.Price>
 
         <S.CoffeeCardBuyWrapper>
           <S.Counter>
-            <button type="button">
+            <button type="button" onClick={() => decrementCoffee(id)}>
               <Minus size={14} color="#8047F8" weight="bold" />
             </button>
-            <span>1</span>
-            <button type="button">
+            <span>{amount || 0}</span>
+            <button type="button" onClick={() => incrementCoffee(id)}>
               <Plus size={14} color="#8047F8" weight="bold" />
             </button>
           </S.Counter>
-          <S.AddToCartButton type="button">
+          <S.AddToCartButton type="button" onClick={() => addToCart(data)}>
             <ShoppingCart size={22} color="white" />
           </S.AddToCartButton>
         </S.CoffeeCardBuyWrapper>
