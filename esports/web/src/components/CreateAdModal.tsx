@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 
 import * as Checkbox from "@radix-ui/react-checkbox";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -10,6 +10,12 @@ import { Input } from "./Form/Input";
 
 interface IGame {
   id: number;
+  title: string;
+}
+
+interface IWeekDayToggleProps {
+  value: string;
+  day: string;
   title: string;
 }
 
@@ -66,6 +72,22 @@ export const CreateAdModal = () => {
       alert("Erro ao criar anúncio!");
     }
   }
+
+  const WeekDayToggle = ({ day, value, title }: IWeekDayToggleProps) => {
+    return useMemo(() => {
+      return (
+        <ToggleGroup.Item
+          title={title}
+          value={value}
+          className={`w-8 h-8 rounded  ${
+            selectedWeekDays.includes(value) ? "bg-violet-500" : "bg-zinc-900"
+          }`}
+        >
+          {day}
+        </ToggleGroup.Item>
+      );
+    }, [selectedWeekDays]);
+  };
 
   return (
     <Dialog.Portal>
@@ -140,83 +162,13 @@ export const CreateAdModal = () => {
                 value={selectedWeekDays}
                 onValueChange={setSelectedWeekDays}
               >
-                <ToggleGroup.Item
-                  title="Domingo"
-                  value="0"
-                  className={`w-8 h-8 rounded  ${
-                    selectedWeekDays.includes("0")
-                      ? "bg-violet-500"
-                      : "bg-zinc-900"
-                  }`}
-                >
-                  D
-                </ToggleGroup.Item>
-                <ToggleGroup.Item
-                  title="Segunda"
-                  value="1"
-                  className={`w-8 h-8 rounded ${
-                    selectedWeekDays.includes("1")
-                      ? "bg-violet-500"
-                      : "bg-zinc-900"
-                  }`}
-                >
-                  S
-                </ToggleGroup.Item>
-                <ToggleGroup.Item
-                  title="Terça"
-                  value="2"
-                  className={`w-8 h-8 rounded ${
-                    selectedWeekDays.includes("2")
-                      ? "bg-violet-500"
-                      : "bg-zinc-900"
-                  }`}
-                >
-                  T
-                </ToggleGroup.Item>
-                <ToggleGroup.Item
-                  title="Quarta"
-                  value="3"
-                  className={`w-8 h-8 rounded ${
-                    selectedWeekDays.includes("3")
-                      ? "bg-violet-500"
-                      : "bg-zinc-900"
-                  }`}
-                >
-                  Q
-                </ToggleGroup.Item>
-                <ToggleGroup.Item
-                  title="Quinta"
-                  value="4"
-                  className={`w-8 h-8 rounded ${
-                    selectedWeekDays.includes("4")
-                      ? "bg-violet-500"
-                      : "bg-zinc-900"
-                  }`}
-                >
-                  Q
-                </ToggleGroup.Item>
-                <ToggleGroup.Item
-                  title="Sexta"
-                  value="5"
-                  className={`w-8 h-8 rounded ${
-                    selectedWeekDays.includes("5")
-                      ? "bg-violet-500"
-                      : "bg-zinc-900"
-                  }`}
-                >
-                  S
-                </ToggleGroup.Item>
-                <ToggleGroup.Item
-                  title="Sábado"
-                  value="6"
-                  className={`w-8 h-8 rounded ${
-                    selectedWeekDays.includes("6")
-                      ? "bg-violet-500"
-                      : "bg-zinc-900"
-                  }`}
-                >
-                  S
-                </ToggleGroup.Item>
+                <WeekDayToggle title="Domingo" value="0" day="D" />
+                <WeekDayToggle title="Segunda-feira" value="1" day="S" />
+                <WeekDayToggle title="Terça-feira" value="2" day="T" />
+                <WeekDayToggle title="Quarta-feira" value="3" day="Q" />
+                <WeekDayToggle title="Quinta-feira" value="4" day="Q" />
+                <WeekDayToggle title="Sexta-feira" value="5" day="S" />
+                <WeekDayToggle title="Sábado" value="6" day="S" />
               </ToggleGroup.Root>
             </div>
             <div className="flex flex-col gap-2 flex-1">
