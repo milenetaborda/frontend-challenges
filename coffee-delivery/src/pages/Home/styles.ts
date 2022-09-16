@@ -21,5 +21,7 @@ export const CoffeeListTitle = styled.h2`
 export const CoffeeList = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
+  margin-top: 32px;
+
+  padding: 54px 0;
 `;

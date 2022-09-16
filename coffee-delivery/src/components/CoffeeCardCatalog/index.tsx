@@ -1,28 +1,44 @@
+import { Minus, Plus, ShoppingCart } from "phosphor-react";
+
+import coffeImage from "./images/Coffee.png";
 import * as S from "./styles";
 
 export const CoffeeCardCatalog = () => {
   return (
     <S.CoffeeCardContainer>
-      <img src="" alt="" />
+      <img src={coffeImage} alt="" />
 
       <S.TagsContainer>
         <span>Tradicional</span>
       </S.TagsContainer>
 
-      <div>
-        <h3>Nome do café</h3>
-        <p>Descrição do café</p>
-      </div>
+      <S.CoffeeHeadingContent>
+        <S.CoffeeName>Nome do café</S.CoffeeName>
+        <S.CoffeeDescription>
+          O tradicional café feito com água quente e grãos moídos
+        </S.CoffeeDescription>
+      </S.CoffeeHeadingContent>
 
-      <footer>
-        <p>R$ 9,90</p>
-        <div>
-          <button type="button">-</button>
-          <span>1</span>
-          <button type="button">+</button>
-        </div>
-        <button type="button">Adicionar ao carrinho</button>
-      </footer>
+      <S.CoffeeCardFooter>
+        <S.Price>
+          <span>R$</span> 10,00
+        </S.Price>
+
+        <S.CoffeeCardBuyWrapper>
+          <S.Counter>
+            <button type="button">
+              <Minus size={14} color="#8047F8" weight="bold" />
+            </button>
+            <span>1</span>
+            <button type="button">
+              <Plus size={14} color="#8047F8" weight="bold" />
+            </button>
+          </S.Counter>
+          <S.AddToCartButton type="button">
+            <ShoppingCart size={22} color="white" />
+          </S.AddToCartButton>
+        </S.CoffeeCardBuyWrapper>
+      </S.CoffeeCardFooter>
     </S.CoffeeCardContainer>
   );
 };
