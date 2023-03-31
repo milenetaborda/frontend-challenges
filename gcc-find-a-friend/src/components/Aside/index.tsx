@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
+import { Select } from "@/components/Select";
 import {
   CityData,
+  StateData,
   getCities,
   getStates,
-  StateData,
 } from "@/services/get-locations";
-import { Select } from "@/components/Select";
+import { useContext, useEffect, useState } from "react";
 
 import logo from "@/assets/icons/logo.svg";
 import search from "@/assets/icons/search.svg";
-
 import {
   ageOptions,
   energyOptions,
@@ -17,20 +16,18 @@ import {
   sizeOptions,
 } from "./mocks";
 
+import { PetsContext } from "@/context/PetsContext";
 import {
   convertCitiesToSelectOption,
   convertStatesToSelectOption,
 } from "@/utils/convertArrayToSelectOption";
-import { PetsParams } from "@/services/get-pets";
 import * as S from "./styles";
 
 export function Aside() {
   const [statesData, setStatesData] = useState<StateData[] | null>(null);
   const [citiesData, setCitiesData] = useState<CityData[] | null>(null);
-  const [searchFilters, setSearchFilters] = useState<PetsParams>({
-    uf: "SP",
-    city: "Sao Paulo",
-  });
+  const { searchFilters, handleChangeSearchFilters, handleSearchPets } =
+    useContext(PetsContext);
 
   useEffect(() => {
     Promise.all([getStates(), getCities(searchFilters?.uf!)]).then(
@@ -43,19 +40,6 @@ export function Aside() {
     );
   }, [searchFilters?.uf]);
 
-  function handleChangeSearchFilters(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) {
-    const { name, value } = event.target;
-
-    if (searchFilters?.uf === value) return;
-
-    setSearchFilters((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  }
-
   const statesOptions = convertStatesToSelectOption(statesData || []);
   const citiesOptions = convertCitiesToSelectOption(citiesData || []);
 
@@ -66,10 +50,12 @@ export function Aside() {
           <img src={logo} alt="" />
           <S.HeaderInput>
             <S.SelectWrapper>
-              <select name="uf" id="uf" onChange={handleChangeSearchFilters}>
-                <option value="" disabled selected>
-                  {searchFilters?.uf || "UF"}
-                </option>
+              <select
+                name="uf"
+                id="uf"
+                onChange={handleChangeSearchFilters}
+                value={searchFilters?.uf}
+              >
                 {statesOptions.map((state) => (
                   <option key={state.value} value={state.value}>
                     {state.label}
@@ -81,10 +67,12 @@ export function Aside() {
                 name="city"
                 id="city"
                 onChange={handleChangeSearchFilters}
+                value={searchFilters?.city}
               >
                 <option value="" disabled selected>
                   {!!searchFilters?.city ? searchFilters?.city : "Cidade"}
                 </option>
+
                 {citiesOptions.map((city) => (
                   <option key={city.value} value={city.value}>
                     {city.label}
@@ -93,7 +81,7 @@ export function Aside() {
               </select>
             </S.SelectWrapper>
 
-            <button>
+            <button onClick={handleSearchPets}>
               <img src={search} alt="ícone de lupa" />
             </button>
           </S.HeaderInput>
@@ -124,7 +112,7 @@ export function Aside() {
           />
 
           <Select
-            name="independency"
+            name="independence"
             label="Nível de independência"
             options={independencyOptions}
             onChange={handleChangeSearchFilters}

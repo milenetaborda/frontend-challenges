@@ -1,29 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 
 import { Aside } from "~/Aside";
 import { Card } from "~/Card";
 
 import chevron from "@/assets/icons/chevron-bottom-blue.svg";
-import { getPets, Pet } from "@/services/get-pets";
+import { PetsContext, PetType } from "@/context/PetsContext";
 
 import * as S from "./styles";
 
 export function Map() {
-  const [pets, setPets] = useState<Pet[] | undefined>();
-  const [petType, setPetType] = useState("all");
-
-  useEffect(() => {
-    const params = {
-      city: "Sao Paulo",
-      type: petType,
-    };
-
-    getPets(params).then((pets) => setPets(pets));
-  }, [petType]);
-
-  function handleFilterByPetType(type: string) {
-    setPetType(type);
-  }
+  const { handleFilterByPetType, pets } = useContext(PetsContext);
 
   return (
     <S.Container>
@@ -39,7 +25,7 @@ export function Map() {
             <S.HeaderSelect
               name="size"
               id="size"
-              onChange={(e) => handleFilterByPetType(e.target.value)}
+              onChange={(e) => handleFilterByPetType(e.target.value as PetType)}
             >
               <option value="all">Gatos e Cachorros</option>
               <option value="cat">Gatos</option>
@@ -54,6 +40,12 @@ export function Map() {
             <Card key={pet.id} path={pet.photo_url} {...pet} />
           ))}
         </S.Display>
+
+        {pets?.length === 0 && (
+          <S.NoPets>
+            <p>Poxa, não encontramos nenhum amigo, tente alterar os filtros.</p>
+          </S.NoPets>
+        )}
       </S.Content>
     </S.Container>
   );

@@ -27,8 +27,8 @@ $ cd gcc-find-a-friend
 
 2. Before you get started, you also need to start the server:
 ```bash
-# Cd the server repository
-$ cd backend
+# Clone the server repository
+$ git clone https://github.com/rocketseat-education/gcc-find-a-friend-api
 
 # Install the server dependencies
 $ npm install

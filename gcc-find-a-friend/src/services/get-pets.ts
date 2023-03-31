@@ -29,9 +29,7 @@ export interface Pet {
   photo_url: string;
 }
 
-export const getPets = async (
-  params: PetsParams
-): Promise<Pet[] | undefined> => {
+export const getPets = async (params: PetsParams): Promise<Pet[]> => {
   const { city, ...restParams } = params;
   delete restParams.uf;
 
@@ -39,6 +37,6 @@ export const getPets = async (
     const { data } = await api.get(`/pets/${city}`, { params: restParams });
     return data.pets;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
