@@ -40,3 +40,12 @@ export const getPets = async (params: PetsParams): Promise<Pet[]> => {
     throw error;
   }
 };
+
+export const getPetDetails = async (petId: string): Promise<Pet> => {
+  try {
+    const { data } = await api.get(`/pets/show/${petId}`);
+    return data.pet;
+  } catch (error) {
+    throw error;
+  }
+};

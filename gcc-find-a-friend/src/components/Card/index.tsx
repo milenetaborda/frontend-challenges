@@ -1,23 +1,28 @@
-import logo from '@/assets/icons/logo.svg'
+import logo from "@/assets/icons/logo.svg";
 
-import { Container, Name, PetImage, TypeIcon } from './styles'
+import { Container, Name, PetImage, TypeIcon } from "./styles";
 
 type CardProps = {
-  path: string
-  name: string
-  type: 'dog' | 'cat'
-}
+  id: string;
+  path: string;
+  name: string;
+  type: "dog" | "cat";
+};
 
-export function Card({ path, name, type }: CardProps) {
+export function Card({ path, name, type, id }: CardProps) {
+  function handleRedirectToPetDetails() {
+    window.location.href = `/details/${id}`;
+  }
+
   return (
-    <Container>
+    <Container onClick={handleRedirectToPetDetails}>
       <PetImage>
         <img src={path} alt={`Foto de ${name}`} />
       </PetImage>
       <div>
         <TypeIcon>
           <div
-            style={{ backgroundColor: type === 'cat' ? '#F4D35E' : '#F15156' }}
+            style={{ backgroundColor: type === "cat" ? "#F4D35E" : "#F15156" }}
           >
             <img src={logo} alt="" />
           </div>
@@ -25,5 +30,5 @@ export function Card({ path, name, type }: CardProps) {
         <Name>{name}</Name>
       </div>
     </Container>
-  )
+  );
 }
