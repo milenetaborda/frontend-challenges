@@ -8,7 +8,6 @@ import { Loading } from "@/components/Loading";
 export default function Home() {
   const { register, handleSubmit } = useForm();
   const [emojisData, setEmojisData] = useState<EmojiData[] | null>(null);
-  const [hasEmptyPrompt, setHasEmptyPrompt] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const getEmojis = async (prompt: string) => {
@@ -24,7 +23,7 @@ export default function Home() {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      setHasEmptyPrompt(true);
+      setEmojisData(null);
     }
   };
 
@@ -66,6 +65,7 @@ export default function Home() {
           {loading ? (
             <Loading />
           ) : (
+            emojisData &&
             emojisData?.map((emoji) => (
               <li key={emoji.name} className={styled["list-item"]}>
                 <span>{emoji.icon}</span>
@@ -75,7 +75,7 @@ export default function Home() {
           )}
         </ul>
 
-        {hasEmptyPrompt && !loading && (
+        {!loading && !emojisData && (
           <p className={styled["no-emoji"]}>
             Ops, nenhum emoji foi encontrado, tente outra descrição 😢
           </p>
