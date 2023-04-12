@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import { EmojiData } from "./api/get-emojis";
 import styled from "../styles/Home.module.css";
 import { Loading } from "@/components/Loading";
@@ -26,7 +25,6 @@ export default function Home() {
     } catch (error) {
       setLoading(false);
       setHasEmptyPrompt(true);
-      toast("Desculpe, nenhum emoji foi encontrado, tente outra descrição");
     }
   };
 
