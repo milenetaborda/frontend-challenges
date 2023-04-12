@@ -69,6 +69,6 @@ export default async function handler(
 
     return res.status(200).json({ emojisOptions });
   } catch (error) {
-    return res.status(400).json({ error });
+    return res.status(400).send("Something went wrong");
   }
 }

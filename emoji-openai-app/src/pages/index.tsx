@@ -1,35 +1,32 @@
 import Head from "next/head";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { EmojiData } from "./api/get-emojis";
 import styled from "../styles/Home.module.css";
 import { Loading } from "@/components/Loading";
-import { toast } from "react-toastify";
 
 export default function Home() {
   const { register, handleSubmit } = useForm();
   const [emojisData, setEmojisData] = useState<EmojiData[] | null>(null);
+  const [hasEmptyPrompt, setHasEmptyPrompt] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const getEmojis = async (prompt: string) => {
     setLoading(true);
 
     try {
-      await fetch("/api/get-emojis", {
+      const response = await fetch("/api/get-emojis", {
         method: "POST",
         body: JSON.stringify({ prompt }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setEmojisData(data.emojisOptions);
-          setLoading(false);
-        });
-    } catch (error) {
-      console.log("oi");
+      });
+      const data = await response.json();
+      setEmojisData(data.emojisOptions);
       setLoading(false);
-      toast.error(
-        "Desculpe, nenhum emoji foi encontrado, tente outra descrição"
-      );
+    } catch (error) {
+      setLoading(false);
+      setHasEmptyPrompt(true);
+      toast("Desculpe, nenhum emoji foi encontrado, tente outra descrição");
     }
   };
 
@@ -79,6 +76,12 @@ export default function Home() {
             ))
           )}
         </ul>
+
+        {hasEmptyPrompt && !loading && (
+          <p className={styled["no-emoji"]}>
+            Ops, nenhum emoji foi encontrado, tente outra descrição 😢
+          </p>
+        )}
       </main>
     </>
   );

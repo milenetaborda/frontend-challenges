@@ -6,7 +6,6 @@
 }
 
 .container {
-  margin-top: 1rem;
   flex-direction: column-reverse;
   position: absolute;
   gap: 1rem;
