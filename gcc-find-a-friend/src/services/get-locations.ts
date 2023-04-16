@@ -11,7 +11,7 @@ export interface CityData {
   code: string;
 }
 
-interface GeolocationData {
+export interface GeolocationData {
   address: string;
   coordinates: {
     latitude: string;
@@ -41,7 +41,7 @@ export const getOngGeolocation = async (
   cep: string
 ): Promise<GeolocationData> => {
   try {
-    const response = await api.get(`/location/geolocation/${cep}`);
+    const response = await api.get(`/location/coordinates/${cep}`);
     return response.data;
   } catch (error) {
     throw error;
